@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harsha Ramisetty</title>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* Apple uses SF Pro — we'll use the closest Google Fonts alternative */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
+
+:root {
+  --white: #ffffff;
+  --off-white: #fbfbfd;
+  --gray-100: #f5f5f7;
+  --gray-200: #e8e8ed;
+  --gray-400: #86868b;
+  --gray-600: #515154;
+  --gray-800: #1d1d1f;
+  --black: #000000;
+  --blue: #0071e3;
+  --blue-hover: #0077ed;
+  --font: 'Figtree', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.47059;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* ── STICKY NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  height: 48px;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 22px;
+}
+.nav-logo {
+  font-size: 17px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: -0.2px;
+}
+.nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+.nav-links a {
+  font-size: 12px; font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  letter-spacing: 0;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: rgba(255,255,255,0.9); }
+.nav-cta {
+  font-size: 12px;
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-cta:hover { color: var(--blue-hover); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Radial glow behind hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 900px; height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0,113,227,0.18) 0%, transparent 65%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -52%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--blue);
+  letter-spacing: -0.2px;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.1s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+.hero-title {
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  color: var(--white);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.22s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+.hero-title .grad {
+  background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.45));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(19px, 2.5vw, 28px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: -0.2px;
+  line-height: 1.35;
+  max-width: 640px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.34s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+.hero-btns {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.46s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+.btn-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 12px 24px;
+  border-radius: 980px;
+  font-size: 17px; font-weight: 400; font-family: var(--font);
+  text-decoration: none; letter-spacing: -0.2px;
+  transition: all 0.25s ease;
+  cursor: pointer; border: none;
+}
+.btn-pill-blue {
+  background: var(--blue); color: #fff;
+}
+.btn-pill-blue:hover { background: var(--blue-hover); transform: scale(1.02); }
+.btn-pill-ghost {
+  background: rgba(255,255,255,0.1); color: var(--blue);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.btn-pill-ghost:hover { background: rgba(255,255,255,0.15); transform: scale(1.02); }
+
+.hero-scroll-hint {
+  position: absolute; bottom: 40px;
+  font-size: 12px; color: rgba(255,255,255,0.3);
+  letter-spacing: 0.05em;
+  animation: bounce 2.5s ease-in-out infinite;
+  opacity: 0;
+  animation: fadeIn 1s 1.2s forwards, bounce 2.5s 2s ease-in-out infinite;
+}
+
+/* ── STAT BAR ── */
+.stat-bar {
+  background: #111;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.stat-item {
+  padding: 48px 32px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stat-item:last-child { border-right: none; }
+.stat-item.visible { opacity: 1; transform: translateY(0); }
+.stat-num {
+  font-size: 56px; font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.stat-num sup { font-size: 28px; font-weight: 500; color: var(--blue); vertical-align: super; }
+.stat-desc {
+  font-size: 14px; font-weight: 400;
+  color: var(--gray-400);
+  letter-spacing: -0.1px;
+  max-width: 180px; margin: 0 auto;
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 120px 24px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+.section-centered { text-align: center; }
+
+/* ── TYPOGRAPHY ── */
+.eyebrow {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 12px;
+}
+.headline {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.07;
+  color: var(--white); margin-bottom: 16px;
+}
+.subheadline {
+  font-size: clamp(17px, 2vw, 21px);
+  font-weight: 300; letter-spacing: -0.2px; line-height: 1.47;
+  color: rgba(255,255,255,0.55);
+}
+
+/* ── ABOUT BENTO GRID ── */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 16px;
+  margin-top: 64px;
+}
+
+.bento-card {
+  background: #1c1c1e;
+  border-radius: 20px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease, background 0.3s;
+}
+.bento-card.visible { opacity: 1; transform: translateY(0); }
+.bento-card:hover { background: #242426; }
+
+/* Grid placement */
+.bento-card-story   { grid-column: span 8; grid-row: span 2; }
+.bento-card-loc     { grid-column: span 4; }
+.bento-card-status  { grid-column: span 4; }
+.bento-card-edu     { grid-column: span 5; }
+.bento-card-lang    { grid-column: span 7; }
+.bento-card-contact { grid-column: span 12; }
+
+.card-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 20px;
+}
+.card-headline {
+  font-size: 22px; font-weight: 600;
+  letter-spacing: -0.4px; line-height: 1.27;
+  color: var(--white); margin-bottom: 12px;
+}
+.card-body {
+  font-size: 15px; font-weight: 300; line-height: 1.65;
+  color: rgba(255,255,255,0.55);
+}
+.card-body strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+.card-body p { margin-bottom: 14px; }
+.card-body p:last-child { margin-bottom: 0; }
+
+/* Location card */
+.location-icon {
+  font-size: 40px; margin-bottom: 16px; display: block;
+}
+.location-city {
+  font-size: 26px; font-weight: 600; letter-spacing: -0.5px;
+  color: var(--white); margin-bottom: 4px;
+}
+.location-country { font-size: 15px; color: var(--gray-400); }
+
+/* Status card */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(52,199,89,0.12);
+  border: 1px solid rgba(52,199,89,0.25);
+  border-radius: 980px;
+  padding: 8px 18px;
+  font-size: 14px; font-weight: 500;
+  color: #34c759;
+  margin-bottom: 16px;
+}
+.status-pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #34c759;
+  animation: pulse-green 2s ease-in-out infinite;
+}
+@keyframes pulse-green { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.8);} }
+.status-title {
+  font-size: 22px; font-weight: 600; letter-spacing: -0.4px;
+  color: var(--white); margin-bottom: 6px;
+}
+.status-sub { font-size: 14px; color: var(--gray-400); }
+
+/* Education card */
+.edu-degree {
+  font-size: 19px; font-weight: 600; letter-spacing: -0.3px;
+  color: var(--white); margin-bottom: 4px;
+}
+.edu-school { font-size: 14px; color: var(--blue); margin-bottom: 2px; font-weight: 400; }
+.edu-meta { font-size: 13px; color: var(--gray-400); margin-bottom: 24px; }
+
+/* Lang card */
+.lang-items { display: flex; flex-direction: column; gap: 20px; }
+.lang-item {}
+.lang-row-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.lang-name { font-size: 17px; font-weight: 500; color: var(--white); letter-spacing: -0.2px; }
+.lang-level { font-size: 13px; color: var(--gray-400); }
+.lang-track {
+  height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+}
+.lang-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue), #34aadc);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 1s 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.lang-fill.animated { transform: scaleX(1); }
+
+/* Contact card */
+.contact-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 14px; overflow: hidden;
+}
+.contact-item {
+  background: #1c1c1e; padding: 28px 24px;
+  text-decoration: none; display: flex; flex-direction: column; gap: 8px;
+  transition: background 0.2s;
+}
+.contact-item:hover { background: #2a2a2e; }
+.contact-item-icon { font-size: 24px; }
+.contact-item-label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-400); }
+.contact-item-value { font-size: 15px; font-weight: 400; color: var(--blue); letter-spacing: -0.1px; }
+
+/* ── STRENGTHS SECTION ── */
+.strengths-bg {
+  background: #111;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.strengths-inner {
+  max-width: 980px; margin: 0 auto;
+  padding: 120px 24px;
+}
+.strengths-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 24px; overflow: hidden;
+  margin-top: 64px;
+}
+.strength-card {
+  background: #111; padding: 44px 36px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease, background 0.2s;
+}
+.strength-card.visible { opacity: 1; transform: translateY(0); }
+.strength-card:hover { background: #1a1a1a; }
+.strength-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+.strength-title {
+  font-size: 19px; font-weight: 600; letter-spacing: -0.3px;
+  color: var(--white); margin-bottom: 10px;
+}
+.strength-desc { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* ── TECH MARQUEE ── */
+.marquee-section {
+  padding: 64px 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  overflow: hidden;
+}
+.marquee-label {
+  text-align: center;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 32px;
+}
+.marquee-track {
+  display: flex; gap: 0;
+  animation: marquee 28s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-item {
+  padding: 10px 28px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  font-size: 15px; font-weight: 400;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+.marquee-item:hover { color: rgba(255,255,255,0.85); }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── FOOTER ── */
+footer {
+  background: #111;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 28px 44px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-left { font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-6px); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .bento-card-story, .bento-card-loc, .bento-card-status,
+  .bento-card-edu, .bento-card-lang, .bento-card-contact { grid-column: span 12; }
+  .stat-bar { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .strengths-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Harsha Ramisetty</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#strengths">Strengths</a></li>
+    <li><a href="#contact-row">Contact</a></li>
+  </ul>
+  <a href="mailto:ramisettyh59@gmail.com" class="nav-cta">Get in touch ↗</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Software Engineer &amp; Data Scientist</div>
+  <h1 class="hero-title">
+    <span class="grad">The engineer who builds<br/>systems that scale.</span>
+  </h1>
+  <p class="hero-sub">
+    Crafting reliable APIs, intelligent pipelines,<br/>
+    and automated workflows — from Koblenz, Germany.
+  </p>
+  <div class="hero-btns">
+    <a href="#about" class="btn-pill btn-pill-blue">Learn more</a>
+    <a href="mailto:ramisettyh59@gmail.com" class="btn-pill btn-pill-ghost">Get in touch ↗</a>
+  </div>
+  <div class="hero-scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-item">
+    <div class="stat-num">1.2<sup>+</sup></div>
+    <div class="stat-desc">Years of professional engineering experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">40<sup>%</sup></div>
+    <div class="stat-desc">PostgreSQL query performance improvement</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100K<sup>+</sup></div>
+    <div class="stat-desc">Daily records processed via ETL pipelines</div>
+  </div>
+</div>
+
+<!-- ABOUT SECTION -->
+<section class="section" id="about">
+  <div class="section-centered">
+    <div class="eyebrow">About Me</div>
+    <h2 class="headline">Built on curiosity.<br/>Delivered with precision.</h2>
+    <p class="subheadline">A software engineer who cares about every layer — from database indexes to deployment pipelines.</p>
+  </div>
+
+  <div class="bento">
+
+    <!-- Story card -->
+    <div class="bento-card bento-card-story">
+      <div class="card-label">My Story</div>
+      <div class="card-body">
+        <p>I'm a <strong>software engineer and data science student</strong> with over a year of professional experience designing software systems, automating workflows, and engineering data pipelines that operate reliably at scale.</p>
+        <p>At <strong>Norwin Technologies</strong>, I built Python-based RESTful API services supporting 50+ users, reduced query latency by 40% through strategic indexing, and established CI/CD pipelines with GitHub Actions. I developed TypeScript modules to enforce type-safe contracts across service boundaries — and maintained every line of documentation alongside the code.</p>
+        <p>As a <strong>Data Engineer Intern at Big Basket (A Tata Enterprise)</strong>, I architected ETL pipelines processing 100K+ daily records powering analytics dashboards across multiple business units — resolving data anomalies and translating stakeholder needs into working technical solutions.</p>
+        <p>Currently pursuing an <strong>MSc in Web &amp; Data Science</strong> at the University of Koblenz, deepening my expertise in Machine Learning, Big Data, and Cloud Architecture — and actively seeking working student or internship roles in Germany.</p>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="bento-card bento-card-loc">
+      <div class="card-label">Based In</div>
+      <span class="location-icon">📍</span>
+      <div class="location-city">Koblenz</div>
+      <div class="location-country">Rhineland-Palatinate, Germany</div>
+    </div>
+
+    <!-- Status -->
+    <div class="bento-card bento-card-status">
+      <div class="card-label">Availability</div>
+      <div class="status-badge">
+        <div class="status-pulse"></div>
+        Open to Work
+      </div>
+      <div class="status-title">Ready to contribute</div>
+      <div class="status-sub">Seeking working student or internship roles in Germany. Available for onsite attendance.</div>
+    </div>
+
+    <!-- Education -->
+    <div class="bento-card bento-card-edu">
+      <div class="card-label">Education</div>
+      <div class="edu-degree">MSc Web &amp; Data Science</div>
+      <div class="edu-school">University of Koblenz</div>
+      <div class="edu-meta">Oct 2025 – ongoing · Germany</div>
+      <div class="edu-degree">BTech Computer Science &amp; AI</div>
+      <div class="edu-school">KKR &amp; KSR Institute of Technology</div>
+      <div class="edu-meta">Sep 2020 – Apr 2024 · GPA: 8.39 / 10</div>
+    </div>
+
+    <!-- Languages -->
+    <div class="bento-card bento-card-lang">
+      <div class="card-label">Languages</div>
+      <div class="lang-items">
+        <div class="lang-item">
+          <div class="lang-row-top">
+            <div class="lang-name">English</div>
+            <div class="lang-level">C1 — Advanced</div>
+          </div>
+          <div class="lang-track"><div class="lang-fill" data-width="0.85"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-row-top">
+            <div class="lang-name">German</div>
+            <div class="lang-level">B1 — Intermediate (improving)</div>
+          </div>
+          <div class="lang-track"><div class="lang-fill" data-width="0.45"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact row -->
+    <div class="bento-card bento-card-contact" id="contact-row" style="padding: 0; background: transparent;">
+      <div class="contact-grid">
+        <a href="mailto:ramisettyh59@gmail.com" class="contact-item">
+          <span class="contact-item-icon">✉️</span>
+          <span class="contact-item-label">Email</span>
+          <span class="contact-item-value">ramisettyh59@gmail.com</span>
+        </a>
+        <a href="tel:+4915510525174" class="contact-item">
+          <span class="contact-item-icon">📞</span>
+          <span class="contact-item-label">Phone</span>
+          <span class="contact-item-value">+49 155 1052 5174</span>
+        </a>
+        <a href="https://github.com/Harsha-1306" target="_blank" class="contact-item">
+          <span class="contact-item-icon">💻</span>
+          <span class="contact-item-label">GitHub</span>
+          <span class="contact-item-value">Harsha-1306</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="contact-item">
+          <span class="contact-item-icon">🔗</span>
+          <span class="contact-item-label">LinkedIn</span>
+          <span class="contact-item-value">Connect with me</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECH MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-label">Core Technologies</div>
+  <div class="marquee-track" id="marquee">
+    <span class="marquee-item">Python</span>
+    <span class="marquee-item">TypeScript</span>
+    <span class="marquee-item">FastAPI</span>
+    <span class="marquee-item">Node.js</span>
+    <span class="marquee-item">PostgreSQL</span>
+    <span class="marquee-item">GitHub Actions</span>
+    <span class="marquee-item">AWS EC2</span>
+    <span class="marquee-item">AWS Lambda</span>
+    <span class="marquee-item">Grafana</span>
+    <span class="marquee-item">SAP CAP</span>
+    <span class="marquee-item">Redis</span>
+    <span class="marquee-item">JWT Auth</span>
+    <span class="marquee-item">Jenkins</span>
+    <span class="marquee-item">Docker</span>
+    <span class="marquee-item">SQL</span>
+    <span class="marquee-item">JSON / XML</span>
+    <span class="marquee-item">REST APIs</span>
+    <span class="marquee-item">Linux</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Python</span>
+    <span class="marquee-item">TypeScript</span>
+    <span class="marquee-item">FastAPI</span>
+    <span class="marquee-item">Node.js</span>
+    <span class="marquee-item">PostgreSQL</span>
+    <span class="marquee-item">GitHub Actions</span>
+    <span class="marquee-item">AWS EC2</span>
+    <span class="marquee-item">AWS Lambda</span>
+    <span class="marquee-item">Grafana</span>
+    <span class="marquee-item">SAP CAP</span>
+    <span class="marquee-item">Redis</span>
+    <span class="marquee-item">JWT Auth</span>
+    <span class="marquee-item">Jenkins</span>
+    <span class="marquee-item">Docker</span>
+    <span class="marquee-item">SQL</span>
+    <span class="marquee-item">JSON / XML</span>
+    <span class="marquee-item">REST APIs</span>
+    <span class="marquee-item">Linux</span>
+  </div>
+</div>
+
+<!-- STRENGTHS SECTION -->
+<div class="strengths-bg" id="strengths">
+  <div class="strengths-inner">
+    <div class="section-centered">
+      <div class="eyebrow">Key Strengths</div>
+      <h2 class="headline">What I bring<br/>to your team.</h2>
+      <p class="subheadline">Six core competencies, battle-tested in production environments.</p>
+    </div>
+    <div class="strengths-grid">
+      <div class="strength-card">
+        <span class="strength-icon">⚡</span>
+        <div class="strength-title">API Engineering</div>
+        <div class="strength-desc">FastAPI, REST design, JWT authentication, rate limiting, and OpenAPI documentation — architected for scale and maintainability.</div>
+      </div>
+      <div class="strength-card">
+        <span class="strength-icon">🔁</span>
+        <div class="strength-title">CI/CD &amp; DevOps</div>
+        <div class="strength-desc">GitHub Actions and Jenkins pipelines that automate testing, build, and deployment — reducing manual release overhead significantly.</div>
+      </div>
+      <div class="strength-card">
+        <span class="strength-icon">☁️</span>
+        <div class="strength-title">Cloud Infrastructure</div>
+        <div class="strength-desc">AWS EC2, RDS, Lambda, and S3 for production deployments. Serverless architectures for event-driven, scalable workflows.</div>
+      </div>
+      <div class="strength-card">
+        <span class="strength-icon">📊</span>
+        <div class="strength-title">Data Engineering</div>
+        <div class="strength-desc">Python and SQL ETL pipelines processing 100K+ records daily. PostgreSQL query optimization and Grafana telemetry dashboards.</div>
+      </div>
+      <div class="strength-card">
+        <span class="strength-icon">🔗</span>
+        <div class="strength-title">System Integration</div>
+        <div class="strength-desc">SAP CAP OData services, JSON/XML processing, TypeScript-typed service contracts, and mock API development for rapid prototyping.</div>
+      </div>
+      <div class="strength-card">
+        <span class="strength-icon">📝</span>
+        <div class="strength-title">Documentation &amp; Collaboration</div>
+        <div class="strength-desc">Clear technical documentation for every release. Strong English communication (C1) and experience aligning with stakeholders directly.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">Copyright © 2026 Harsha Ramisetty. Koblenz, Germany.</div>
+  <div class="footer-links">
+    <a href="mailto:ramisettyh59@gmail.com">Email</a>
+    <a href="https://github.com/Harsha-1306" target="_blank">GitHub</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  // Intersection observer for all animated elements
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Stat items with stagger
+  document.querySelectorAll('.stat-item').forEach((el, i) => {
+    el.dataset.delay = i * 120;
+    io.observe(el);
+  });
+
+  // Bento cards with stagger
+  document.querySelectorAll('.bento-card').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    io.observe(el);
+  });
+
+  // Strength cards with stagger
+  document.querySelectorAll('.strength-card').forEach((el, i) => {
+    el.dataset.delay = i * 90;
+    io.observe(el);
+  });
+
+  // Language bar animation
+  const langObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.lang-fill').forEach(fill => {
+          fill.classList.add('animated');
+          fill.style.transform = `scaleX(${fill.dataset.width})`;
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bento-card-lang').forEach(el => langObserver.observe(el));
+</script>
+</body>
+</html>
