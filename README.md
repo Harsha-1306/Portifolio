@@ -21,9 +21,7 @@ The portfolio showcases my projects, technical skills, and experience with a foc
 ![Jenkins](https://img.shields.io/badge/Jenkins-Pipeline-D24939?logo=jenkins&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
 
-### Monitoring & Tools
-![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?logo=grafana&logoColor=white)
-![REST API](https://img.shields.io/badge/REST-API-005571)
+
 
 ### Deployment
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Hosting-222222?logo=githubpages&logoColor=white)
